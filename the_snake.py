@@ -8,12 +8,10 @@ GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
 # Направления движения
-DIRECTIONS = {
-    "UP": (0, -1),
-    "DOWN": (0, 1),
-    "LEFT": (-1, 0),
-    "RIGHT": (1, 0),
-}
+UP = (0, -1)
+DOWN = (0, 1)
+LEFT = (-1, 0)
+RIGHT = (1, 0)
 
 # Цвета
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
@@ -46,7 +44,7 @@ class GameObject:
 class Apple(GameObject):
     """Класс для яблока, которое змейка должна съесть."""
 
-    def __init__(self, occupied_positions):
+    def __init__(self, occupied_positions=[]):
         super().__init__()
         self.body_color = APPLE_COLOR
         self.randomize_position(occupied_positions)
@@ -77,7 +75,7 @@ class Snake(GameObject):
         self.body_color = SNAKE_COLOR
         self.length = 1
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
-        self.direction = DIRECTIONS["RIGHT"]
+        self.direction = RIGHT
         self.next_direction = None
 
     def update_direction(self):
@@ -117,7 +115,7 @@ class Snake(GameObject):
         """Сбрасывает состояние змейки."""
         self.length = 1
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
-        self.direction = DIRECTIONS["RIGHT"]
+        self.direction = RIGHT
         self.next_direction = None
 
 
@@ -128,22 +126,14 @@ def handle_keys(snake):
             pygame.quit()
             raise SystemExit
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and snake.direction != DIRECTIONS[
-                'DOWN'
-            ]:
-                snake.next_direction = DIRECTIONS["UP"]
-            elif event.key == pygame.K_DOWN and snake.direction != DIRECTIONS[
-                'UP'
-            ]:
-                snake.next_direction = DIRECTIONS["DOWN"]
-            elif event.key == pygame.K_LEFT and snake.direction != DIRECTIONS[
-                'RIGHT'
-            ]:
-                snake.next_direction = DIRECTIONS["LEFT"]
-            elif event.key == pygame.K_RIGHT and snake.direction != DIRECTIONS[
-                'LEFT'
-            ]:
-                snake.next_direction = DIRECTIONS["RIGHT"]
+            if event.key == pygame.K_UP and snake.direction != DOWN:
+                snake.next_direction = UP
+            elif event.key == pygame.K_DOWN and snake.direction != UP:
+                snake.next_direction = DOWN
+            elif event.key == pygame.K_LEFT and snake.direction != RIGHT:
+                snake.next_direction = LEFT
+            elif event.key == pygame.K_RIGHT and snake.direction != LEFT:
+                snake.next_direction = RIGHT
             elif event.key == pygame.K_RETURN:
                 return True  # Для рестарта игры
     return False
