@@ -1,4 +1,5 @@
 from random import randint
+
 import pygame as pg
 
 # Константы для размеров поля и сетки
@@ -51,8 +52,6 @@ class Apple(GameObject):
         self.body_color = APPLE_COLOR
         if occupied_positions is not None:
             self.randomize_position(occupied_positions)
-        else:
-            pass
 
     def randomize_position(self, occupied_positions):
         """Устанавливает случайное положение яблока на игровом поле,
@@ -155,10 +154,8 @@ def main():
     """Основной игровой цикл."""
     snake = Snake()
     game_started = False
-    apple = None
     occupied_positions = set(snake.positions)
-    if apple is None:
-        apple = Apple(occupied_positions)
+    apple = Apple()
 
     while True:
         clock.tick(SPEED)
