@@ -155,7 +155,7 @@ def main():
     snake = Snake()
     game_started = False
     occupied_positions = set(snake.positions)
-    apple = Apple()
+    apple = Apple(occupied_positions)
 
     while True:
         clock.tick(SPEED)
